@@ -34,9 +34,11 @@ module.exports = {
 
     handleWebHookPos(req, res) {
         for (const entry of req.body.entry) {
+            console.log(entry);
+            if (!entry.messaging || entry.messaging.length == 0) continue;
             let id = entry.id;
             let time = entry.time;
-            let db = userdata.child(`${id}`)
+            let db = userdata.child(`${entry.messaging[0].sender.id}`);
             for (const message of entry.messaging) {
                 if (!message.sender || !message.sender.id || !message.message.text) continue;
                 try {
@@ -59,7 +61,7 @@ module.exports = {
                             //Check play stated
                             if (dataDB.name) {
                                 if (!dataDB.gameStatus || dataDB.gameStatus == type.GAME_STATUS.NOTREADY) {
-                                    this.sendMessage(message.sender.id, 'Bạn gõ "sẵn sàng" để bắt đầu chơi nhé');
+                                    this.sendMessage(message.sender.id, `${dataDB.name} gõ "sẵn sàng" để bắt đầu chơi nhé`);
                                     dataDB.gameStatus = type.GAME_STATUS.WAITING;
                                 } else if (dataDB.gameStatus == type.GAME_STATUS.WAITING) {
                                     if (util.compareString(text, 'san sang')) {
@@ -76,17 +78,17 @@ module.exports = {
                                         if (eval(lastMath) == parseInt(text)) {
                                             let math = this.randomMath(dataDB.gameData.length / 5 + 1);
                                             dataDB.gameData.push(math);
-                                            this.sendMessage(message.sender.id, `Chính xác: ${math}`);
+                                            this.sendMessage(message.sender.id, `Chính xác !!!\nHãy tính: ${math}`);
                                         } else {
                                             dataDB.gameStatus = type.GAME_STATUS.WAITING;
-                                            this.sendMessage(message.sender.id, `Chưa chính xác rồi\nBạn đã hoàn thành ${dataDB.gameData.length - 1} câu hỏi trong ${Math.round((new Date().getTime() - dataDB.gameTime)/1000)} giây\nGõ "sẵn sàng" để bắt đầu lại nha`);
+                                            this.sendMessage(message.sender.id, `Chưa chính xác rồi\nChúc mừng ${dataDB.name} đã hoàn thành ${dataDB.gameData.length - 1} câu hỏi trong ${Math.round((new Date().getTime() - dataDB.gameTime) / 1000)} giây\nGõ "sẵn sàng" để bắt đầu lại nha ${dataDB.name}`);
                                             dataDB.gameData = [];
                                         }
                                     } else {
                                         let math = this.randomMath(dataDB.gameData.length / 5 + 1);
                                         dataDB.gameData.push(math);
                                         dataDB.gameTime = new Date().getTime();
-                                        this.sendMessage(message.sender.id, `Bắt đầu nào: ${math}`);
+                                        this.sendMessage(message.sender.id, `Bắt đầu nào tính toán nào!!!\nHãy tính: ${math}`);
                                     }
                                 }
                             }
