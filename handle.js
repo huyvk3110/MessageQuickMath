@@ -79,12 +79,13 @@ module.exports = {
                                             this.sendMessage(message.sender.id, `Chính xác: ${math}`);
                                         } else {
                                             dataDB.gameStatus = type.GAME_STATUS.WAITING;
+                                            this.sendMessage(message.sender.id, `Chưa chính xác rồi\nBạn đã hoàn thành ${dataDB.gameData.length - 1} câu hỏi trong ${Math.round((new Date() - dataDB.gameTime)/1000)} giây\nGõ "sẵn sàng" để bắt đầu lại nha`);
                                             dataDB.gameData = [];
-                                            this.sendMessage(message.sender.id, `Chưa chính xác rồi, gõ "sẵn sàng" để bắt đầu lại nha`);
                                         }
                                     } else {
                                         let math = this.randomMath(dataDB.gameData.length / 5 + 1);
                                         dataDB.gameData.push(math);
+                                        dataDB.gameTime = new Date();
                                         this.sendMessage(message.sender.id, `Bắt đầu nào: ${math}`);
                                     }
                                 }
