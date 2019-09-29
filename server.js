@@ -36,4 +36,4 @@ app.post('/webhook', (req, res) => {
     res.status(200).send('OK');
 })
 
-server.listen(define.PORT, () => { console.log(`Server running on ${define.IP}:${define.PORT}`); })
+server.listen(process.env.PORT || define.PORT, () => { console.log(`Server running on ${define.IP}:${process.env.PORT || define.PORT}`); })
