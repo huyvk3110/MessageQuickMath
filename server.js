@@ -13,6 +13,7 @@ const server = http.createServer(app);
 
 app.get('/', (req, res) => {
     console.log('Have a traffic into server');
+    res.send('Wellcome');
 })
 
 app.get('/webhook', (req, res) => {
@@ -35,4 +36,4 @@ app.post('/webhook', (req, res) => {
     res.status(200).send('OK');
 })
 
-server.listen(define.PORT, define.IP, () => { console.log(`Server running on ${define.IP}:${define.PORT}`); })
+server.listen(define.PORT, () => { console.log(`Server running on ${define.IP}:${define.PORT}`); })
