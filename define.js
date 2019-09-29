@@ -1,6 +1,6 @@
 module.exports = {
     IP: '127.0.0.1',
-    PORT: '3002',
+    PORT: '5000',
     FIREBASE_DB: 'https://quickmath-fac13.firebaseio.com/',
     ACCESS_KEY: 'QUICKMATHPRO',
     TOKKEN: 'EAAHg1KbnEUABAFziLuZC6ogmTgO3MEjQa8cI9ZBB5aeCojG3fZAQZA14As623vuxOPhsuZBVcDfPN9lhaVXD7aslk8ZBZBkxfEA3ulkPn1Xz8nDJVbOeNMEzvWP9eZCdKX8HG4kXtD2JPqSKekRkDgggre0Fn9GTl3QhPmZBc8jY9Lq0dZA0JFG32ZBZCSSgOurZBIVoZD',
